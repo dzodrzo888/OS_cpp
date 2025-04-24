@@ -1,5 +1,7 @@
 #ifndef MEMORY_H
 #define MEMORY_H
+#include <unordered_map>
+#include <iostream>
 
 class Memory {
 public:
@@ -8,7 +10,7 @@ public:
     int* alloc(int size);
     void dealloc(int* o);
 private:
-    int ram;
+    std::unordered_map<int, int> ram;
 };
 
 #endif
