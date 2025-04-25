@@ -1,9 +1,10 @@
 #include "Math.h"
+#include "Memory.h"
 #include <iostream>
 
 int main(){
-    Math math;
-    int sqrt_num = math.sqrt(49);
-    std::cout << sqrt_num << "\n";
+    Memory memory(1024);
+    int* block = memory.alloc(5);
+    memory.dealloc(block);
     return 0;
 }
