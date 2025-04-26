@@ -1,7 +1,7 @@
 CXX = g++
 CXXFLAGS = -Wall -Wextra
 
-OBJS = main.o Memory.o Array.o String.o Math.o Sys.o BinaryOp.o
+OBJS = main.o Memory.o Array.o String.o Math.o Sys.o BinaryOp.o Screen.o
 TARGET = os_sim
 
 all: $(TARGET)

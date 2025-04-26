@@ -13,7 +13,7 @@ public:
     void poke(int address, int value);
     int* alloc(int size);
     void dealloc(int* o);
-    void list_lists(void);
+    void list_lists();
 private:
     std::vector<int> ram;
     struct FreeList
