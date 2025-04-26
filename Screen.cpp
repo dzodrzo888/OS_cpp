@@ -11,6 +11,7 @@ Screen::Screen() : memory(TOTAL_WORDS) {
 }
 
 void Screen::display_screen() {
+
     freopen("file.txt", "w", stdout);
     for (int y = 0; y < SCREEN_HEIGHT; ++y) {
         for (int x = 0; x < SCREEN_WIDTH; ++x) {
@@ -28,7 +29,11 @@ void Screen::display_screen() {
         }
         std::cout << '\n';
     }
+
+    fflush(stdout);
     fclose(stdout);
+
+    freopen("/dev/tty", "w", stdout);
 }
 
 void Screen::draw_pixel(int x, int y) {
