@@ -8,7 +8,7 @@ Memory::Memory(int heapBase) : ram(heapBase, 0) {
     // set the params of the first freelist.
     // Substract 2 becasue 2 spaces of ram belong to the next pointer and heapbase size
     freeListHead->Next = nullptr;
-    freeListHead->size = heapBase - 2;
+    freeListHead->size = heapBase;
     freeListHead->start = 0;
 
     std::cout << "Initialized FreeList with heap size: " << heapBase << std::endl;
@@ -36,15 +36,13 @@ int* Memory::alloc(int size) {
             curr_list->size -= (size + 2);
             int alloc_start = curr_list->start + curr_list->size;
             
-            ram[alloc_start] = NULL;             
+            ram[alloc_start] = 0;             
             ram[alloc_start + 1] = size;      
-            
             return &ram[alloc_start + 2];  
         }
 
         curr_list = curr_list->Next;
     }
-
     return nullptr; 
 }
 
@@ -52,5 +50,31 @@ int* Memory::alloc(int size) {
 void Memory::dealloc(int* o) {
     int* ram_ptr = ram.data();
     int block_start = o - ram_ptr - 2;
+    FreeList* tail_list = freeListHead;
+
+    while(tail_list->Next != nullptr) {
+        tail_list = tail_list->Next;
+    }
     
+    if(tail_list == nullptr){
+        std::cout << "No appropriate list found" << "\n";
+        return;
+    }
+
+    FreeList* new_list = new FreeList;
+    new_list->start = block_start;
+    new_list->size = ram[block_start + 1];
+    new_list->Next = nullptr;
+    tail_list->Next = new_list;
+}
+
+void Memory::list_lists() {
+    FreeList* list = freeListHead;
+    while (list != nullptr)
+    {
+        std::cout << list->start << "  " << list->size << "  " << list->Next << "\n";
+        list = list->Next;
+    }
+    delete list;
+    return;
 }
