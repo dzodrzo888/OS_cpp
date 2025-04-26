@@ -1,8 +1,11 @@
 #include "Screen.h"
+#include "Memory.h"
 #include <iostream>
 #include <cstdint>
 
-u_int16_t Screen::screen[Screen::TOTAL_WORDS] = {0};
+Screen::Screen() : memory(TOTAL_WORDS) {
+
+}
 
 void Screen::display_screen() {
     for (int y = 0; y < SCREEN_HEIGHT; ++y) {
@@ -11,7 +14,7 @@ void Screen::display_screen() {
             int wordIndex = pixelIndex / WORD_SIZE;
             int bitIndex = pixelIndex % WORD_SIZE;
 
-            bool pixelOn = (screen[wordIndex] >> (15 - bitIndex)) & 1;
+            bool pixelOn = (memory.ram[wordIndex] >> (15 - bitIndex)) & 1;
             std::cout << (pixelOn ? '#' : '.');
         }
         std::cout << '\n';

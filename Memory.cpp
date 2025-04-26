@@ -1,7 +1,7 @@
 #include "Memory.h"
 #include <iostream>
 
-Memory::Memory(int heapBase) : ram(heapBase, 0) {
+Memory::Memory(unsigned short heapBase) : ram(heapBase, static_cast<u_int16_t>(0)) {
     //Initialize the head of the free list
     freeListHead = new FreeList;
 
@@ -28,7 +28,7 @@ void Memory::poke(int address, int value){
     ram[address] = value;
 }
 
-int* Memory::alloc(int size) {
+u_int16_t* Memory::alloc(int size) {
     FreeList* curr_list = freeListHead;
 
     while (curr_list != nullptr) {
@@ -47,8 +47,8 @@ int* Memory::alloc(int size) {
 }
 
 
-void Memory::dealloc(int* o) {
-    int* ram_ptr = ram.data();
+void Memory::dealloc(u_int16_t* o) {
+    u_int16_t* ram_ptr = ram.data();
     int block_start = o - ram_ptr - 2;
     FreeList* tail_list = freeListHead;
 

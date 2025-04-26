@@ -3,19 +3,21 @@
 #include <unordered_map>
 #include <iostream>
 #include <vector>
+#include <cstdint>
 
 class Memory {
 public:
 
-    Memory(int heapBase);
+    Memory(unsigned short heapBase);
 
     int peek(int address);
     void poke(int address, int value);
-    int* alloc(int size);
-    void dealloc(int* o);
+    u_int16_t* alloc(int size);
+    void dealloc(u_int16_t* o);
     void list_lists();
+
+    std::vector<u_int16_t> ram;
 private:
-    std::vector<int> ram;
     struct FreeList
     {
         FreeList* Next;

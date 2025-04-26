@@ -2,9 +2,13 @@
 #define SCREEN_H
 #include <iostream>
 #include <cstdint>
+#include "Memory.h"
 
 class Screen {
 public:
+
+    Screen();
+
     void display_screen();
     void clear_screen();
     void set_color(bool b);
@@ -17,7 +21,7 @@ private:
     static const int SCREEN_HEIGHT = 256;
     static const int WORD_SIZE = 16;
     static const int TOTAL_WORDS = (SCREEN_WIDTH * SCREEN_HEIGHT) / WORD_SIZE;
-    static uint16_t screen[TOTAL_WORDS];
+    Memory memory;
 };
 
 #endif
