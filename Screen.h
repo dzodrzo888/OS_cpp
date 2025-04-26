@@ -17,6 +17,7 @@ public:
     void draw_line(int x1, int y1, int x2, int y2);
     void draw_rectangle(int x1, int y1, int x2, int y2);
     void draw_circle_fill(int x, int y, int r);
+    void draw_circle_unfill(int x, int y, int r);
 private:
     static const int SCREEN_WIDTH = 512;
     static const int SCREEN_HEIGHT = 256;

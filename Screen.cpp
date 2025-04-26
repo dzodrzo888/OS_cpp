@@ -90,6 +90,21 @@ void Screen::draw_circle_fill(int x, int y, int r) {
     }
 }
 
+void Screen::draw_circle_unfill(int x, int y, int r) {
+    int dy = -r;
+    int x1 = 0;
+    int x2 = 0;
+    int sqr_op = 0;
+    while (dy <= r) {
+        sqr_op = math.sqrt(r*r - dy*dy);
+        x1 = x - sqr_op;
+        x2 = x + sqr_op;
+        draw_pixel(x1, y + dy);
+        draw_pixel(x2, y + dy);
+        dy += 1;
+    }
+}
+
 void Screen::set_color(bool b) {
     // Setting color for bitshifting
     if (b){
