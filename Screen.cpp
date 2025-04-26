@@ -19,7 +19,12 @@ void Screen::display_screen() {
             int bitIndex = pixelIndex % WORD_SIZE;
 
             bool pixelOn = (memory.ram[wordIndex] >> (15 - bitIndex)) & 1;
-            std::cout << (pixelOn ? '#' : '.');
+            if(clear_screen) {
+                std::cout << ('.');
+            } 
+            else {
+                std::cout << (pixelOn ? '#' : '.');
+            }
         }
         std::cout << '\n';
     }
@@ -76,6 +81,13 @@ void Screen::draw_line(int x1, int y1, int x2, int y2) {
     
 }
 
+void Screen::draw_rectangle(int x1, int y1, int x2, int y2) {
+    while (y1 <= y2){
+        draw_line(x1, y1, x2, y1);
+        y1++;
+    }
+}
+
 void Screen::draw_circle_fill(int x, int y, int r) {
     int dy = -r;
     int x1 = 0;
@@ -113,4 +125,9 @@ void Screen::set_color(bool b) {
     }
     color = 0;
     return;
+}
+
+void Screen::clear_screen_fnc() {
+    clear_screen = true;
+    display_screen();
 }
