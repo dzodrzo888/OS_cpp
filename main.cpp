@@ -5,6 +5,7 @@
 
 int main(){
     Screen screen;
+    screen.draw_circle_fill(10, 10, 3);
     screen.display_screen();
     return 0;
 }

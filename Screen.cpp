@@ -1,13 +1,17 @@
 #include "Screen.h"
 #include "Memory.h"
+#include "Math.h"
 #include <iostream>
 #include <cstdint>
+#include <stdio.h>
+
+
 
 Screen::Screen() : memory(TOTAL_WORDS) {
-
 }
 
 void Screen::display_screen() {
+    freopen("file.txt", "w", stdout);
     for (int y = 0; y < SCREEN_HEIGHT; ++y) {
         for (int x = 0; x < SCREEN_WIDTH; ++x) {
             int pixelIndex = y * SCREEN_WIDTH + x;
@@ -19,4 +23,79 @@ void Screen::display_screen() {
         }
         std::cout << '\n';
     }
+    fclose(stdout);
+}
+
+void Screen::draw_pixel(int x, int y) {
+    int address = 32*y + x/16;
+    int value = memory.peek(address);
+    int bitIndex = 15 - (x % 16); 
+    set_color(true);
+    value = value | (color << bitIndex); 
+    memory.poke(address, value);
+}
+
+void Screen::draw_line(int x1, int y1, int x2, int y2) {
+    int sx = 0;
+    int sy = 0;
+    int err = 0;
+    int e2 = 0;
+    int dx = math.abs(x2 - x1);
+    int dy = math.abs(y2 - y1);
+    if(x1<x2) {
+		sx = 1;
+	}
+	else {
+		sx = -1;
+	}
+		
+	if(y1<y2) {
+		sy = 1;
+	}
+	else {
+		sy = -1;
+	}
+
+    err = dx-dy;
+
+    while(!((x1 == x2) && (y1 == y2))) {
+        draw_pixel(x1, y1);
+        e2 = err+err;
+        if(e2 > -dy) {
+			err = err-dy;
+			x1 = x1+sx;
+		}
+			
+		if(e2 < dx) {
+		err = err+dx;
+		y1 = y1+sy;
+		}
+    }
+    draw_pixel(x1,y1);
+	return;
+    
+}
+
+void Screen::draw_circle_fill(int x, int y, int r) {
+    int dy = -r;
+    int x1 = 0;
+    int x2 = 0;
+    int sqr_op = 0;
+    while (dy <= r) {
+        sqr_op = math.sqrt(r*r - dy*dy);
+        x1 = x - sqr_op;
+        x2 = x + sqr_op;
+        draw_line(x1, y + dy, x2, y + dy);
+        dy += 1;
+    }
+}
+
+void Screen::set_color(bool b) {
+    // Setting color for bitshifting
+    if (b){
+        color = 1;
+        return;
+    }
+    color = 0;
+    return;
 }
