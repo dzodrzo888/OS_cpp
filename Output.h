@@ -2,6 +2,7 @@
 #define OUTPUT_H
 #include <iostream>
 #include <vector>
+#include "Screen.h"
 
 class Output {
 
@@ -13,6 +14,8 @@ public:
     
 private:
     std::vector<std::vector<int>> char_maps;
+    Screen screen;
+    const std::vector<std::pair<int, int>>& grid_positions;
 };
 
 

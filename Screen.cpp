@@ -8,6 +8,7 @@
 
 
 Screen::Screen() : memory(TOTAL_WORDS) {
+    initialize_grid();
 }
 
 void Screen::display_screen() {
@@ -135,4 +136,23 @@ void Screen::set_color(bool b) {
 void Screen::clear_screen_fnc() {
     clear_screen = true;
     display_screen();
+}
+
+void Screen::initialize_grid() {
+    int row = SCREEN_WIDTH / 8;
+    int col = SCREEN_HEIGHT / 16;
+    int x = 0;
+    int y = 0;
+
+    for (int i = 0; i < col; i++) {
+        y = i * 11;
+        for (int j = 0; j < row; j++) {
+            x = j * 8;
+            grid_positions.push_back({x, y});
+        }
+    }
+}
+
+const std::vector<std::pair<int, int>>& Screen::get_grid_positions() const {
+    return grid_positions;
 }

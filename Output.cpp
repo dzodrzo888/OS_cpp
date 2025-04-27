@@ -2,7 +2,7 @@
 #include <iostream>
 #include <vector>
 
-Output::Output() {
+Output::Output() : grid_positions(screen.get_grid_positions()) {
 
     create(0,63,63,63,63,63,63,63,63,63,0,0);
 

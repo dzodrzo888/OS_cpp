@@ -18,11 +18,15 @@ public:
     void draw_rectangle(int x1, int y1, int x2, int y2);
     void draw_circle_fill(int x, int y, int r);
     void draw_circle_unfill(int x, int y, int r);
+    void initialize_grid();
+    const std::vector<std::pair<int, int>>& get_grid_positions() const;
+
 private:
     static const int SCREEN_WIDTH = 512;
     static const int SCREEN_HEIGHT = 256;
     static const int WORD_SIZE = 16;
     static const int TOTAL_WORDS = (SCREEN_WIDTH * SCREEN_HEIGHT) / WORD_SIZE;
+    std::vector<std::pair<int, int>> grid_positions;
     Memory memory;
     Math math;
     int color = 0;

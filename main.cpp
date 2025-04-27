@@ -5,8 +5,11 @@
 
 int main(){
     Screen screen;
-    screen.draw_rectangle(5, 2, 10, 7);
-    screen.display_screen();
-    screen.clear_screen_fnc();
+    screen.initialize_grid();
+    const auto& grid_positions = screen.get_grid_positions();
+
+    for (const auto& position : grid_positions) {
+        std::cout << "(" << position.first << ", " << position.second << ")\n";
+    }
     return 0;
 }
