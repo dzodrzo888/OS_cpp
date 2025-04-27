@@ -1,10 +1,20 @@
 #include "Output.h"
 #include <iostream>
 #include <vector>
+#include <string>
 
-Output::Output() : grid_positions(screen.get_grid_positions()) {
+Output::Output(Screen& screen) : screen(screen), grid_positions(screen.get_grid_positions()) {
 
-    create(0,63,63,63,63,63,63,63,63,63,0,0);
+    create(0,12,30,51,51,51,51,51,30,12,0,0); // 0
+    create(1,12,14,15,12,12,12,12,12,63,0,0); // 1
+    create(2,30,51,48,24,12,6,3,51,63,0,0);   // 2
+    create(3,30,51,48,48,28,48,48,51,30,0,0); // 3
+    create(4,16,24,28,26,25,63,24,24,60,0,0); // 4
+    create(5,63,3,3,31,48,48,48,51,30,0,0);   // 5
+    create(6,28,6,3,3,31,51,51,51,30,0,0);    // 6
+    create(7,63,49,48,48,24,12,12,12,12,0,0); // 7
+    create(8,30,51,51,51,30,51,51,51,30,0,0); // 8
+    create(9,30,51,51,51,62,48,48,24,14,0,0); // 9
 
     create(32,0,0,0,0,0,0,0,0,0,0,0);          //
     create(33,12,30,30,30,12,12,0,12,12,0,0);  // !
@@ -23,24 +33,13 @@ Output::Output() : grid_positions(screen.get_grid_positions()) {
     create(46,0,0,0,0,0,0,0,12,12,0,0);        // .    
     create(47,0,0,32,48,24,12,6,3,1,0,0);      // /
         
-    create(48,12,30,51,51,51,51,51,30,12,0,0); // 0
-    create(49,12,14,15,12,12,12,12,12,63,0,0); // 1
-    create(50,30,51,48,24,12,6,3,51,63,0,0);   // 2
-    create(51,30,51,48,48,28,48,48,51,30,0,0); // 3
-    create(52,16,24,28,26,25,63,24,24,60,0,0); // 4
-    create(53,63,3,3,31,48,48,48,51,30,0,0);   // 5
-    create(54,28,6,3,3,31,51,51,51,30,0,0);    // 6
-    create(55,63,49,48,48,24,12,12,12,12,0,0); // 7
-    create(56,30,51,51,51,30,51,51,51,30,0,0); // 8
-    create(57,30,51,51,51,62,48,48,24,14,0,0); // 9
-        
     create(58,0,0,12,12,0,0,12,12,0,0,0);      // :
     create(59,0,0,12,12,0,0,12,12,6,0,0);      // ;
     create(60,0,0,24,12,6,3,6,12,24,0,0);      // <
     create(61,0,0,0,63,0,0,63,0,0,0,0);        // =
     create(62,0,0,3,6,12,24,12,6,3,0,0);       // >
-    create(64,30,51,51,59,59,59,27,3,30,0,0);  // @
     create(63,30,51,51,24,12,12,0,12,12,0,0);  // ?
+    create(64,30,51,51,59,59,59,27,3,30,0,0);  // @
 
     create(65,12,30,51,51,63,51,51,51,51,0,0); // A
     create(66,31,51,51,51,31,51,51,51,31,0,0); // B
@@ -115,21 +114,30 @@ void Output::create(int index, int a, int b, int c, int d, int e,
 		         int f, int g, int h, int i, int j, int k)
 {
 
-    std::vector<int> map;
-    char_maps[index] = map;
+    if (index >= char_maps.size()) {
+        char_maps.resize(index + 1);
+    }
 
-    map[0] = a;
-    map[1] = b;
-    map[2] = c;
-    map[3] = d;
-    map[4] = e;
-    map[5] = f;
-    map[6] = g;
-    map[7] = h;
-    map[8] = i;
-    map[9] = j;
-    map[10] = k;
+    char_maps[index] = {a, b, c, d, e, f, g, h, i, j, k};
 
     return;
 
+}
+
+void Output::print_symbol(int index, int position) {
+    auto& char_cor = char_maps[index]; // Get the bitmap for the character
+    int start_x = grid_positions[position].first; // Starting x position
+    int start_y = grid_positions[position].second; // Starting y position
+
+    for (int i = 0; i < 11; i++) { // Iterate over 11 rows
+        int row_data = char_cor[i]; // Get the row data (integer)
+        for (int j = 0; j < 8; j++) { // Iterate over 8 columns
+            bool b = (row_data >> j) & 1; // Extract the bit (1 = on, 0 = off)
+            if (b) {
+                screen.draw_pixel(start_x + j, start_y + i, true); // Draw "on" pixel
+            } else {
+                screen.draw_pixel(start_x + j, start_y + i, false); // Draw "off" pixel (optional)
+            }
+        }
+    }
 }

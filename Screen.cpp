@@ -37,11 +37,11 @@ void Screen::display_screen() {
     freopen("/dev/tty", "w", stdout);
 }
 
-void Screen::draw_pixel(int x, int y) {
+void Screen::draw_pixel(int x, int y, bool b) {
     int address = 32*y + x/16;
     int value = memory.peek(address);
     int bitIndex = 15 - (x % 16); 
-    set_color(true);
+    set_color(b);
     value = value | (color << bitIndex); 
     memory.poke(address, value);
 }
@@ -70,7 +70,7 @@ void Screen::draw_line(int x1, int y1, int x2, int y2) {
     err = dx-dy;
 
     while(!((x1 == x2) && (y1 == y2))) {
-        draw_pixel(x1, y1);
+        draw_pixel(x1, y1, true);
         e2 = err+err;
         if(e2 > -dy) {
 			err = err-dy;
@@ -82,7 +82,7 @@ void Screen::draw_line(int x1, int y1, int x2, int y2) {
 		y1 = y1+sy;
 		}
     }
-    draw_pixel(x1,y1);
+    draw_pixel(x1,y1, true);
 	return;
     
 }
@@ -117,8 +117,8 @@ void Screen::draw_circle_unfill(int x, int y, int r) {
         sqr_op = math.sqrt(r*r - dy*dy);
         x1 = x - sqr_op;
         x2 = x + sqr_op;
-        draw_pixel(x1, y + dy);
-        draw_pixel(x2, y + dy);
+        draw_pixel(x1, y + dy, true);
+        draw_pixel(x2, y + dy, true);
         dy += 1;
     }
 }
