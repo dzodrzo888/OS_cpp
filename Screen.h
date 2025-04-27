@@ -18,6 +18,7 @@ public:
     void draw_circle_fill(int x, int y, int r);
     void draw_circle_unfill(int x, int y, int r);
     void initialize_grid();
+    int return_pos_index(int row, int col);
     const std::vector<std::pair<int, int>>& get_grid_positions() const;
 
 private:

@@ -148,6 +148,13 @@ void Screen::initialize_grid() {
     }
 }
 
+int Screen::return_pos_index(int row, int col) {
+    int total_rows = SCREEN_WIDTH / 8;
+    int index = row * total_rows + col;
+
+    return index;
+}
+
 const std::vector<std::pair<int, int>>& Screen::get_grid_positions() const {
     return grid_positions;
 }

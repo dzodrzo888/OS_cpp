@@ -126,6 +126,9 @@ void Output::create(int index, int a, int b, int c, int d, int e,
 }
 
 void Output::print_symbol(int index, int position) {
+    if(index == 127) {
+        cursor_position = position;
+    }
     auto& char_cor = char_maps[index]; // Get the bitmap for the character
     int start_x = grid_positions[position].first; // Starting x position
     int start_y = grid_positions[position].second; // Starting y position
@@ -141,4 +144,17 @@ void Output::print_symbol(int index, int position) {
             }
         }
     }
+}
+
+void Output::move_cursor(int row, int col) {
+    int position = screen.return_pos_index(row, col);
+    std::cout << position << "\n";
+    if (position > grid_positions.size()) {
+        std::cout << "Position not present in the Grid!" << "\n";
+        return;
+    }
+    if(cursor_position != NULL) {
+        print_symbol(32, cursor_position);
+    }
+    print_symbol(127, position);
 }
