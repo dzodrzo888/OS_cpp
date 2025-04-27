@@ -114,8 +114,8 @@ Output::Output(Screen& screen) : screen(screen), grid_positions(screen.get_grid_
 void Output::create(int index, int a, int b, int c, int d, int e,
 		         int f, int g, int h, int i, int j, int k)
 {
-
-    if (index >= char_maps.size()) {
+    int char_maps_size = char_maps.size();
+    if (index >= char_maps_size) {
         char_maps.resize(index + 1);
     }
 
@@ -147,7 +147,8 @@ void Output::print_symbol(int index, int position) {
 }
 
 void Output::move_cursor(int position) {
-    if (position > grid_positions.size()) {
+    int grid_size = grid_positions.size();
+    if (position > grid_size) {
         std::cout << "Position not present in the Grid!" << "\n";
         return;
     }
@@ -181,4 +182,16 @@ void Output::advance_int(int i) {
     }
     print_symbol(i, position);
     move_cursor(position + 1);
+}
+
+void Output::print_string(std::string str) {
+    int len_of_str = str.length();
+    for(int i = 0; i < len_of_str; i++) {
+        advance_char(str[i]);
+    }
+}
+
+void Output::println() {
+    int row_pos = cursor_position / 11;
+    move_cursor(row_pos * 11);
 }

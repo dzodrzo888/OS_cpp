@@ -20,10 +20,10 @@ public:
     void initialize_grid();
     int return_pos_index(int row, int col);
     const std::vector<std::pair<int, int>>& get_grid_positions() const;
-
-private:
     static const int SCREEN_WIDTH = 512;
     static const int SCREEN_HEIGHT = 256;
+
+private:
     static const int WORD_SIZE = 16;
     static const int TOTAL_WORDS = (SCREEN_WIDTH * SCREEN_HEIGHT) / WORD_SIZE;
     std::vector<std::pair<int, int>> grid_positions;

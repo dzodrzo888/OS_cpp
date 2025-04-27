@@ -9,13 +9,7 @@ int main(){
     Output output(screen);
     screen.initialize_grid();
 
-    output.advance_int(1);
-    output.advance_int(2);
-    output.advance_int(3);
-    output.advance_int(4);
-    output.advance_char('H');
-    output.advance_char('I');
-    output.advance_int(5);
+    output.print_string("Hello");
     screen.display_screen();
     return 0;
 }

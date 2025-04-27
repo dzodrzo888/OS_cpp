@@ -2,6 +2,7 @@
 #define OUTPUT_H
 #include <iostream>
 #include <vector>
+#include <string>
 #include "Screen.h"
 
 class Output {
@@ -15,6 +16,8 @@ public:
     void move_cursor(int position);
     void advance_char(char c);
     void advance_int(int i);
+    void print_string(std::string str);
+    void println();
 
 private:
     std::vector<std::vector<int>> char_maps;
