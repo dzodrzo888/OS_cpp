@@ -9,13 +9,13 @@ int main(){
     Output output(screen);
     screen.initialize_grid();
 
-    output.print_symbol(72, 0);
-    output.print_symbol(69, 1);
-    output.print_symbol(76, 2);
-    output.print_symbol(76, 3);
-    output.print_symbol(79, 4);
-    output.print_symbol(127, 5);
-    output.move_cursor(0, 4);
+    output.advance_int(1);
+    output.advance_int(2);
+    output.advance_int(3);
+    output.advance_int(4);
+    output.advance_char('H');
+    output.advance_char('I');
+    output.advance_int(5);
     screen.display_screen();
     return 0;
 }
