@@ -14,6 +14,8 @@ int main(){
     output.print_symbol(76, 2);
     output.print_symbol(76, 3);
     output.print_symbol(79, 4);
+    output.print_symbol(127, 5);
+    output.print_symbol(32, 5);
     screen.display_screen();
     return 0;
 }

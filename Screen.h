@@ -12,7 +12,6 @@ public:
 
     void display_screen();
     void clear_screen_fnc();
-    void set_color(bool b);
     void draw_pixel(int x, int y, bool b);
     void draw_line(int x1, int y1, int x2, int y2);
     void draw_rectangle(int x1, int y1, int x2, int y2);

@@ -38,11 +38,16 @@ void Screen::display_screen() {
 }
 
 void Screen::draw_pixel(int x, int y, bool b) {
-    int address = 32*y + x/16;
-    int value = memory.peek(address);
+    int address = 32 * y + x / 16; 
+    int value = memory.peek(address); 
     int bitIndex = 15 - (x % 16); 
-    set_color(b);
-    value = value | (color << bitIndex); 
+
+    if (b) {
+        value |= (1 << bitIndex);
+    } else {
+        value &= ~(1 << bitIndex); 
+    }
+
     memory.poke(address, value);
 }
 
@@ -121,16 +126,6 @@ void Screen::draw_circle_unfill(int x, int y, int r) {
         draw_pixel(x2, y + dy, true);
         dy += 1;
     }
-}
-
-void Screen::set_color(bool b) {
-    // Setting color for bitshifting
-    if (b){
-        color = 1;
-        return;
-    }
-    color = 0;
-    return;
 }
 
 void Screen::clear_screen_fnc() {

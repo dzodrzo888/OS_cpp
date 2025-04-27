@@ -106,6 +106,7 @@ Output::Output(Screen& screen) : screen(screen), grid_positions(screen.get_grid_
     create(124,12,12,12,12,12,12,12,12,12,0,0);  // |
     create(125,7,12,12,12,56,12,12,12,7,0,0);    // }
     create(126,38,45,25,0,0,0,0,0,0,0,0);        // ~
+    create(127,63,63,63,63,63,63,63,63,63,0,0); // Cursor
 
     return;
 }
