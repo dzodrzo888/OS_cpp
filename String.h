@@ -12,11 +12,13 @@ public:
     int length() const;
     char char_at(int j);
     void set_char_at(int j, char c);
+    std::string append_char(char c);
 
 private:
     Memory memory;
     int heap_memory = 1024;
     u_int16_t* empty_str;
+    int block_start;
 };
 
 #endif
