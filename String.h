@@ -9,8 +9,9 @@ public:
     String(int max_length);
     
     void dispose();
-    int length();
-    
+    int length() const;
+    char char_at(int j);
+    void set_char_at(int j, char c);
 
 private:
     Memory memory;
